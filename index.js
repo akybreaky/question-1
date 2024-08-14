@@ -80,6 +80,10 @@ app.get('/findAverageAndMedian', (req,res) =>{
 
 // D) Function: find4Digits
 function find4Digits(string) {
+    if (typeof string !== 'string') {
+        return false;
+    }
+    
     const match = string.match(/\b\d{4}\b/);
     return match ? match[0] : false;
 }
