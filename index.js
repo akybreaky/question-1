@@ -56,7 +56,7 @@ function findAverageAndMedian(numArray) {
     return { average, median };
 }
 
-app.post('/findAverageAndMedian', (req, res) => {
+app.get('/findAverageAndMedian', (req, res) => {
     const { numArray } = req.body;
     const result = findAverageAndMedian(numArray);
     res.json(result || { error: "Invalid input." });
