@@ -74,7 +74,7 @@ app.get('/findAverageAndMedian', (req,res) =>{
     res.end("Invalid input.");
   }else{
     res.end(result);
-  }
+  });
 
 // D) Function: find4Digits
 function find4Digits(string) {
