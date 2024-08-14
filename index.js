@@ -41,26 +41,40 @@ app.post('/uppercaseFirstandLast', (req, res) => {
 });
 
 // C) Function: findAverageAndMedian
-function findAverageAndMedian(numArray) {
-    const numbers = numArray.map(Number).filter(num => !isNaN(num));
-    if (numbers.length === 0) return false;
-
-    const average = numbers.reduce((a, b) => a + b, 0) / numbers.length;
-    const sortedNumbers = [...numbers].sort((a, b) => a - b);
-    const middleIndex = Math.floor(sortedNumbers.length / 2);
-
-    const median = sortedNumbers.length % 2 !== 0
-        ? sortedNumbers[middleIndex]
-        : (sortedNumbers[middleIndex - 1] + sortedNumbers[middleIndex]) / 2;
-
-    return { average, median };
+function findAverageAndMedian(numlist) {
+  var numbers= numlist.split(',');
+  for(var i=0; i<numbers.length;i++){
+    if(isNaN(numbers[i])){
+      return false;
+    }
+  }
+  var median;
+  var average;
+  var total=0;
+  for(var i=0; i<numbers.length;i++){
+    var num = parseInt(numbers[i]);
+    total+=num;
+  }
+  average = total/numbers.length;
+  const numSort=numbers.sort((a,b)=> a-b);
+  const middleIndex= numbers.length/2;
+  if(numbers.length %2 !==0){
+    median = numSort[Math.floor(middleIndex)];
+  }else{
+    median = (parseFloat(numSort[middleIndex-1]) + parseFloat(numSort[middleIndex]))/2;
+  }
+  return "The average is " + average + " The median is " + median ;
+ 
 }
 
-app.post('/findAverageAndMedian', (req, res) => {
-    const { numArray } = req.body;
-    const result = findAverageAndMedian(numArray);
-    res.json(result || { error: "Invalid input." });
-});
+app.get('/findAverageAndMedian', (req,res) =>{
+  let {numlist} = req.query;
+  let result = findAverageAndMedian(numlist);
+  if(result ==false){
+    res.end("Invalid input.");
+  }else{
+    res.end(result);
+  }
 
 // D) Function: find4Digits
 function find4Digits(string) {
