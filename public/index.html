@@ -1,35 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Node.js Function Test</title>
+  <title>Question 1: Node.js User Input Example</title>
+  <meta charset="UTF-8">
 </head>
 <body>
-    <h1>Node.js Function Test</h1>
+  
+  <h1><i>Question 1:</i></h1>
+
+  <h1>findSummation function</h1>
+  <form action="/findSummation" method="POST">
     
-    <form action="/findSummation" method="post">
-        <label for="number">Enter a positive integer:</label>
-        <input type="number" name="number" id="number">
-        <button type="submit">Find Summation</button>
-    </form>
+    <input type="text" name="number" placeholder="Enter a single number">
+    <button type="submit">Submit</button>
+  </form>
 
-    <form action="/uppercaseFirstandLast" method="post">
-        <label for="string">Enter a string:</label>
-        <input type="text" name="string" id="string">
-        <button type="submit">Uppercase First and Last</button>
-    </form>
+  <h1>uppercaseFirstandLast function</h1>
+  <form action="/uppercaseFirstandLast" method="POST">
+    
+    <input type="text" name="string" placeholder="Enter a word">
+    <button type="submit">Submit</button>
+  </form>
 
-    <form action="/findAverageAndMedian" method="post">
-        <label for="numArray">Enter an array of numbers (comma-separated):</label>
-        <input type="text" name="numArray" id="numArray">
-        <button type="submit">Find Average and Median</button>
-    </form>
+  <h1>findAverageAndMedian function</h1>
+  <form action="/findAverageAndMedian" method="GET">
+    
+    <input type="text" name="numlist" placeholder="Enter an array of numbers">
+    <button type="submit">Submit</button>
+  </form>
 
-    <form action="/find4Digits" method="post">
-        <label for="stringDigits">Enter a string of numbers (space-separated):</label>
-        <input type="text" name="string" id="stringDigits">
-        <button type="submit">Find First Four-Digit Number</button>
-    </form>
+  <h1>find4Digits function</h1>
+  <form action="/find4Digits" method="POST">
+    
+    <input type="text" name="digits" placeholder="Enter digits seperated by a space">
+    <button type="submit">Submit</button>
+  </form>
+  <br>
+  <br>
+  <script>
+    document.getElementById('averageMedianForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const arrayInput = document.getElementById('arrayInput').value;
+        const array = arrayInput.split(',').map(Number);  // Convert comma-separated string to array of numbers
+        
+        fetch('/findAverageAndMedian', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ array }),  // Sending the array
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            alert(`Average: ${data.result.average}, Median: ${data.result.median}`);
+        })
+        .catch((error) => console.error('Error:', error));
+    });
+</script>
 </body>
 </html>
