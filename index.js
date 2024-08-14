@@ -90,8 +90,12 @@ function find4Digits(string) {
 
 app.post('/find4Digits', (req, res) => {
     const { string } = req.body;
-    const result = find4Digits(string);
-    res.json({ result });
+    try {
+        const result = find4Digits(string);
+        res.json({ result });
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 app.get('/', (req, res) => {
