@@ -84,9 +84,13 @@ function find4Digits(string) {
         return false;
     }
     
+    // Match any sequence of exactly four digits
     const match = string.match(/\b\d{4}\b/);
+    
+    // Return the matched four-digit number or false if not found
     return match ? match[0] : false;
 }
+
 
 app.post('/find4Digits', (req, res) => {
     const { string } = req.body;
