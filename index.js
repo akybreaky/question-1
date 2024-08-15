@@ -79,27 +79,23 @@ app.get('/findAverageAndMedian', (req,res) =>{
 });
 
 // D) Function: find4Digits
-function find4Digits(string) {
-    if (typeof string !== 'string') {
-        return false;
-    }
-    
-    // Match any sequence of exactly four digits
-    const match = string.match(/\b\d{4}\b/);
-    
-    // Return the matched four-digit number or false if not found
-    return match ? match[0] : false;
+function find4Digits(string){
+  var pattern = /\d+/
+  var digits = ""
+  if(!pattern.test(string)){
+      return false;
+  }else{
+      var array = string.split(" ");
+      for(var i=0; i<4 ; i++){
+          digits+= " " + array[i];
+      }
+  }
+  return digits;
 }
-
-
-app.post('/find4Digits', (req, res) => {
-    const { string } = req.body;
-    try {
-        const result = find4Digits(string);
-        res.json({ result });
-    } catch (error) {
-        res.status(500).send("Internal Server Error");
-    }
+app.post('/find4Digits', (req,res) =>{
+  const {digits} = req.body;
+  const result = find4Digits(digits);
+  res.json({result});
 });
 
 app.get('/', (req, res) => {
